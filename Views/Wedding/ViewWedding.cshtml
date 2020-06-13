@@ -1,0 +1,42 @@
+@* @model Wedding *@
+
+@{
+    ViewData["Title"] = "Details";
+    <link rel="stylesheet" href="~/css/Wedding.css">
+
+}
+
+<h1 class="Text-center">@Model.Wedders()</h1>
+<div class="text-center"> 
+    <a asp-action="Weddings" asp-controller="Wedding">Dashboard</a><br>
+    <a  asp-action="Logout" asp-controller="Home" >Logout </a> 
+</div>
+<p>Wedding's date: @Model.Date.ToString("MMM-dd-yyyy") at @Model.Date.ToString("t")</p>
+<p>Address: @Model.Address()</p>
+
+<div>Attendees: @Model.Attendees.Count
+
+    @foreach (var user in Model.Attendees)
+    {
+        <p></p>
+        if(@user.User.UserId == @Model.CreatorId)
+        {
+            <p>@user.User.FullName() (Coordinator)</p>
+        }
+        else
+        {
+            <p>@user.User.FullName() (Guests)</p>
+        }
+    }
+</div>
+
+<div class="center">
+<div class="col-9 d-flex flex-wrap justify-content-center">
+        <iframe width="600" height="450" frameborder="1" style="border:1px solid grey;" 
+        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBcbGOQQ4Zk3sFgmqmGCEA-H_r7tnlglwk&q=@Model.Street+@Model.City+@Model.State+@Model.Zip" 
+        allowfullscreen></iframe>
+      </div>
+</div>
+
+
+
